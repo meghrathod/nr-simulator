@@ -1,8 +1,8 @@
 from random import seed
 
+from environment import eNBs
 from Simulator import Simulator
 from UE import UE
-from environment import eNBs
 
 
 def main():

@@ -3,8 +3,8 @@ from random import seed
 from typing import List
 
 import environment
-from UE import UE
 from eNB import eNB
+from UE import UE
 from utils import Ticker
 
 seed(42)
@@ -64,11 +64,13 @@ class Simulator:
 
     def check_handover_completion(self, ue: UE):
         if self.Ticker.time - self.ho_trigger_time >= environment.TTT:
-            if ue.get_upcoming_eNB().calc_RSRP(ue.get_location()) >= \
-                    ue.get_eNB().calc_RSRP(ue.get_location() + environment.HYSTERESIS):
+            if ue.get_upcoming_eNB().calc_RSRP(
+                    ue.get_location()) >= ue.get_eNB().calc_RSRP(
+                        ue.get_location() + environment.HYSTERESIS):
                 self.ho_active = False
                 ue.set_eNB(ue.get_upcoming_eNB())
-                print("UE %s is connected to eNB %s" % (ue.get_id(), ue.get_eNB().get_id()))
+                print("UE %s is connected to eNB %s" %
+                      (ue.get_id(), ue.get_eNB().get_id()))
             else:
                 ue.set_HO_failure()
                 self.ho_active = False
@@ -90,12 +92,13 @@ class Simulator:
         else:
             for e_nb in nearby_bs:
                 if e_nb.get_id() != ue.get_eNB().get_id():
-                    if e_nb.calc_RSRP(ue.get_location()) > \
-                            ue.get_eNB().calc_RSRP(ue.get_location() + environment.HYSTERESIS):
+                    if e_nb.calc_RSRP(ue.get_location()) > ue.get_eNB(
+                    ).calc_RSRP(ue.get_location() + environment.HYSTERESIS):
                         self.ho_active = True
                         self.ho_trigger_time = self.Ticker.time
                         ue.set_upcoming_eNB(e_nb)
-                        print("UE %s is in area of eNB %s" % (ue.get_id(), e_nb.get_id()))
+                        print("UE %s is in area of eNB %s" %
+                              (ue.get_id(), e_nb.get_id()))
 
     def discover_bs(self):
         self.e_nbs.sort(key=lambda x: x.get_location())
