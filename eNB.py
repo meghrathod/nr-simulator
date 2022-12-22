@@ -3,7 +3,7 @@ import random
 import numpy
 
 import environment
-from utils import freq_to_wavelength, calc_power_in_dbm
+from utils import calc_power_in_dbm, freq_to_wavelength
 
 
 class eNB:

@@ -1,6 +1,6 @@
+from environment import eNBs
 from Simulate_UE import Simulate_UE
 from UE import UE
-from environment import eNBs
 from utils import graph_rsrp
 
 
