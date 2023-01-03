@@ -2,13 +2,14 @@ import random
 import threading
 
 import utils.Result
+from eNB import eNBs
 from Simulate_UE import Simulate_UE
 from UE import UE
-from eNB import eNBs
 from utils.Ticker import Ticker
 
 
-def main(lock_mutex: threading.Lock, ue_arg: UE, enbs_arg: eNBs, ticker: Ticker) -> utils.Result.Result:
+def main(lock_mutex: threading.Lock, ue_arg: UE, enbs_arg: eNBs,
+         ticker: Ticker) -> utils.Result.Result:
     # Define the UEs
     u1 = ue_arg
 
