@@ -161,8 +161,8 @@ class UE:
         """
         # If it is time for the UE to start moving to the next destination, choose a new destination
         if (fabs(self.location) >= fabs(self.destination) and self.direction
-            == 1) or (fabs(self.location) <= fabs(self.destination)
-                      and self.direction == -1):
+                == 1) or (fabs(self.location) <= fabs(self.destination)
+                          and self.direction == -1):
             # Choose a new destination between 0 and 50000 meters
             self.destination = random.uniform((self.get_min_max_bounds()[0]),
                                               self.get_min_max_bounds()[1])

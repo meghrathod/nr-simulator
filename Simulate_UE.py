@@ -2,8 +2,8 @@ import math
 from typing import List
 
 import environment
-from UE import UE
 from eNB import eNB
+from UE import UE
 from utils.Result import Result
 from utils.Ticker import Ticker
 
@@ -42,9 +42,8 @@ class Simulate_UE:
         if len(nearby_bs) == 0:
             print("UE %s is out of range" % ue.get_location())
             return Exception("UE is out of range")
-        sorted_nearby_bs = sorted(
-            nearby_bs,
-            key=lambda x: x.calc_RSRP(ue.get_location()))
+        sorted_nearby_bs = sorted(nearby_bs,
+                                  key=lambda x: x.calc_RSRP(ue.get_location()))
         # TODO: add a minimum RSRP threshold to consider
         ue.set_eNB(sorted_nearby_bs[0])
         ue.set_nearby_bs(nearby_bs)
@@ -65,7 +64,8 @@ class Simulate_UE:
         if self.Ticker.time - self.ho_trigger_time >= environment.TTT:
             if ue.get_upcoming_eNB().calc_RSRP(
                     ue.get_location()) >= ue.get_eNB().calc_RSRP(
-                ue.get_location() + environment.HYSTERESIS + environment.A3_OFFSET):
+                        ue.get_location() + environment.HYSTERESIS +
+                        environment.A3_OFFSET):
                 self.ho_active = False
                 ue.set_eNB(ue.get_upcoming_eNB())
                 ue.set_HO_success(ue.get_handover_type())

@@ -18,9 +18,11 @@ class eNB:
         self.location = x
         self.bs_type = bs_type  # "nr" or "lte"
         if self.bs_type == "nr":
-            self.wavelength = utils.misc.freq_to_wavelength(environment.FREQ_NR)
+            self.wavelength = utils.misc.freq_to_wavelength(
+                environment.FREQ_NR)
         elif self.bs_type == "lte":
-            self.wavelength = utils.misc.freq_to_wavelength(environment.FREQ_LTE)
+            self.wavelength = utils.misc.freq_to_wavelength(
+                environment.FREQ_LTE)
 
     def __str__(self):
         return "eNB located at %s of type: %s" % (self.location, self.bs_type)

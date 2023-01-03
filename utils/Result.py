@@ -4,10 +4,7 @@ from typing import List
 import openpyxl
 
 # Import the values from the environment.py file
-from environment import (
-    TTT,
-    HYSTERESIS,
-    A3_OFFSET)
+from environment import A3_OFFSET, HYSTERESIS, TTT
 
 
 class Result:
@@ -69,8 +66,10 @@ class Result:
             sheet.cell(row=next_row, column=i + 5).value = element
 
         # Write the total success and total failure to the sheet
-        sheet.cell(row=next_row, column=9).value = str(self.get_total_failure())
-        sheet.cell(row=next_row, column=10).value = str(self.get_total_success())
+        sheet.cell(row=next_row,
+                   column=9).value = str(self.get_total_failure())
+        sheet.cell(row=next_row,
+                   column=10).value = str(self.get_total_success())
         sheet.cell(row=next_row, column=11).value = str(self.get_total_ho())
 
         # Write the TTT and HYSTERESIS to the sheet
