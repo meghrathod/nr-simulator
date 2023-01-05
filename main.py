@@ -22,7 +22,8 @@ def main(lock_mutex: threading.Lock) -> utils.Result.Result:
     res = S.run(ticker, time=10000000)
     lock_mutex.acquire()
     try:
-        utils.Result.Result.save_to_file(res, "results_TTT_at_5dB.xlsx", enbs[0])
+        utils.Result.Result.save_to_file(res, "results_TTT_at_5dB.xlsx",
+                                         enbs[0])
     finally:
         lock_mutex.release()
     return res
@@ -36,7 +37,7 @@ num_threads = 30
 threads = []
 for i in range(num_threads):
     # Create a new UE and eNBs object for each thread
-    thread = threading.Thread(target=main, args=(lock,))
+    thread = threading.Thread(target=main, args=(lock, ))
     thread.start()
     threads.append(thread)
 

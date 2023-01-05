@@ -4,16 +4,14 @@ from typing import List
 import openpyxl
 
 # Import the values from the environment.py file
-from environment import (
-    TTT,
-    HYSTERESIS,
-    A3_OFFSET)
+from environment import A3_OFFSET, HYSTERESIS, TTT
 
 
 class Result:
     total = 0
 
-    def __init__(self, success: List[int], failure: List[int], timeOfExecution: int):
+    def __init__(self, success: List[int], failure: List[int],
+                 timeOfExecution: int):
         self.success = success
         self.failure = failure
         self.total = sum(success) + sum(failure)
@@ -80,9 +78,9 @@ class Result:
             sheet.cell(row=next_row, column=i + 5 + 5).value = element
 
         # Write the total success and total failure to the sheet
-        sheet.cell(row=next_row, column=14).value = (self.get_total_failure())
-        sheet.cell(row=next_row, column=15).value = (self.get_total_success())
-        sheet.cell(row=next_row, column=16).value = (self.get_total_ho())
+        sheet.cell(row=next_row, column=14).value = self.get_total_failure()
+        sheet.cell(row=next_row, column=15).value = self.get_total_success()
+        sheet.cell(row=next_row, column=16).value = self.get_total_ho()
 
         # Save the workbook
         workbook.save(file_name)
