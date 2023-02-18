@@ -1,6 +1,7 @@
 import math
-from typing import List
 import random
+from typing import List
+
 import environment
 import utils
 import utils.misc
@@ -20,9 +21,11 @@ class eNB:
         self.location = x
         self.bs_type = bs_type  # "bs" or "bs-rs"
         if self.bs_type == "nr":
-            self.wavelength = utils.misc.freq_to_wavelength(environment.FREQ_NR)
+            self.wavelength = utils.misc.freq_to_wavelength(
+                environment.FREQ_NR)
         elif self.bs_type == "ris":
-            self.wavelength = utils.misc.freq_to_wavelength(environment.FREQ_NR)
+            self.wavelength = utils.misc.freq_to_wavelength(
+                environment.FREQ_NR)
 
     def __str__(self):
         return "eNB located at %s of type: %s" % (self.location, self.bs_type)
@@ -38,23 +41,17 @@ class eNB:
 
     def set_location(self, x):
         self.location = x
-        
-
 
     def power_from_bs(self, ueLocation):
         pt = utils.misc.calc_power_in_dbm(environment.PTX)
         pr_nr = pt
-        if(math.fabs(ueLocation-self.location) > 1):
-            pr_nr /= math.fabs(ueLocation - self.location)            
+        if math.fabs(ueLocation - self.location) > 1:
+            pr_nr /= math.fabs(ueLocation - self.location)
         return pr_nr
-
-
 
     def power_received(self, ueLocation):
         pt = utils.misc.calc_power_in_dbm(environment.PTX)
         pr_nr = pt
-        if(math.fabs(ueLocation-self.location) > 1):
-            pr_nr /= math.fabs(ueLocation - self.location)            
+        if math.fabs(ueLocation - self.location) > 1:
+            pr_nr /= math.fabs(ueLocation - self.location)
         return pr_nr
-
-

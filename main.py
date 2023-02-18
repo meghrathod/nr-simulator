@@ -2,16 +2,17 @@ import os
 import random
 import threading
 from typing import List
-from eNB import eNB
+
 import utils.Result
+from eNB import eNB
+from ris import ris
 from Simulate_UE import Simulate_UE
 from Simulate_UE_ris import Simulate_UE_ris
 from UE import UE
-from ris import ris
 from utils.Ticker import Ticker
 
 # def main(enbs : List[eNB]) -> utils.Result.Result:
-    
+
 #     u1 = UE(0)
 #     ticker = Ticker()
 #     S = Simulate_UE(u1, enbs)
@@ -20,13 +21,20 @@ from utils.Ticker import Ticker
 #     file_name = os.path.join(os.path.dirname(__file__), file_name)
 #     return res
 
-
 # Define the number of threads to run
 
-def main_ris(lock_mutex: threading.Lock, enbs : List[eNB], ris : List[ris], ttt, hys, u1 : UE, bs:str) -> utils.Result.Result:
-    
+
+def main_ris(
+    lock_mutex: threading.Lock,
+    enbs: List[eNB],
+    ris: List[ris],
+    ttt,
+    hys,
+    u1: UE,
+    bs: str,
+) -> utils.Result.Result:
     # print("ue: %s",u1.get_id())
-    enb2 = eNB(50000,random.randint(0,100), "nr")
+    enb2 = eNB(50000, random.randint(0, 100), "nr")
     ticker = Ticker()
     S = Simulate_UE_ris(u1, enbs, ris)
     res = S.run(ticker, time=10000000)
@@ -41,7 +49,14 @@ def main_ris(lock_mutex: threading.Lock, enbs : List[eNB], ris : List[ris], ttt,
 
 
 # # Define the number of threads to run
-def run_threads_ris(enbs : List[eNB], ris: List[ris], time_to_trigger: int, hysteresis: int, ue : UE, bs:type):
+def run_threads_ris(
+    enbs: List[eNB],
+    ris: List[ris],
+    time_to_trigger: int,
+    hysteresis: int,
+    ue: UE,
+    bs: type,
+):
     """
     This function runs the main function in multiple threads
     """
@@ -53,7 +68,9 @@ def run_threads_ris(enbs : List[eNB], ris: List[ris], time_to_trigger: int, hyst
     threads = []
     for i in range(num_threads):
         # Create a new UE and eNBs object for each thread
-        thread = threading.Thread(target=main_ris, args=(lock, enbs, ris, time_to_trigger, hysteresis, ue, bs))
+        thread = threading.Thread(target=main_ris,
+                                  args=(lock, enbs, ris, time_to_trigger,
+                                        hysteresis, ue, bs))
         thread.start()
         threads.append(thread)
 
@@ -63,8 +80,8 @@ def run_threads_ris(enbs : List[eNB], ris: List[ris], time_to_trigger: int, hyst
         thread.join()
 
 
-def main(lock_mutex: threading.Lock, enbs: List[eNB], ttt, hys, u1: UE, bs: str) -> utils.Result.Result:
-
+def main(lock_mutex: threading.Lock, enbs: List[eNB], ttt, hys, u1: UE,
+         bs: str) -> utils.Result.Result:
     # print("ue: %s",u1.get_id())
     enb2 = eNB(50000, random.randint(0, 100), "nr")
     ticker = Ticker()
@@ -81,7 +98,8 @@ def main(lock_mutex: threading.Lock, enbs: List[eNB], ttt, hys, u1: UE, bs: str)
 
 
 # # Define the number of threads to run
-def run_threads(enbs: List[eNB], time_to_trigger: int, hysteresis: int, ue: UE, bs: type):
+def run_threads(enbs: List[eNB], time_to_trigger: int, hysteresis: int, ue: UE,
+                bs: type):
     """
     This function runs the main function in multiple threads
     """
@@ -93,8 +111,9 @@ def run_threads(enbs: List[eNB], time_to_trigger: int, hysteresis: int, ue: UE, 
     threads = []
     for i in range(num_threads):
         # Create a new UE and eNBs object for each thread
-        thread = threading.Thread(target=main, args=(
-            lock, enbs, time_to_trigger, hysteresis, ue, bs))
+        thread = threading.Thread(target=main,
+                                  args=(lock, enbs, time_to_trigger,
+                                        hysteresis, ue, bs))
         thread.start()
         threads.append(thread)
 
