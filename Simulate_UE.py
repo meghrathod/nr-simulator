@@ -58,7 +58,6 @@ class Simulate_UE:
             self.check_for_handover()
         print(
             f"Successful HOs [lte2lte, lte2nr, nr2lte, nr2nr]: {self.ue.get_HO_success()}"
-
         )
         print(
             f"Failed HOs [lte2lte, lte2nr, nr2lte, nr2nr]: {self.ue.get_HO_failure()}"
