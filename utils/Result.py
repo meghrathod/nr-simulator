@@ -4,8 +4,7 @@ from typing import List
 import openpyxl
 
 # Import the values from the environment.py file
-from environment import (
-    A3_OFFSET)
+from environment import A3_OFFSET
 
 
 class Result:
@@ -30,7 +29,9 @@ class Result:
     def get_total_failure(self):
         return sum(self.failure)
 
-    def save_to_file(self, file_name: str, environment: str, time_to_trigger: int, hysteresis: int):
+    def save_to_file(
+        self, file_name: str, environment: str, time_to_trigger: int, hysteresis: int
+    ):
         # Check if the file exists
         if not os.path.exists(file_name):
             print("File does not exist, creating new file")
@@ -77,9 +78,9 @@ class Result:
             sheet.cell(row=next_row, column=i + 5 + 5).value = element
 
         # Write the total success and total failure to the sheet
-        sheet.cell(row=next_row, column=14).value = (self.get_total_failure())
-        sheet.cell(row=next_row, column=15).value = (self.get_total_success())
-        sheet.cell(row=next_row, column=16).value = (self.get_total_ho())
+        sheet.cell(row=next_row, column=14).value = self.get_total_failure()
+        sheet.cell(row=next_row, column=15).value = self.get_total_success()
+        sheet.cell(row=next_row, column=16).value = self.get_total_ho()
 
         # Save the workbook
         workbook.save(file_name)
