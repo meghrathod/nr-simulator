@@ -75,8 +75,8 @@ class Simulate_UE:
         """
         Handover occurs when the UE is in area of another base station with higher Pr for TTT
         """
-        environment.pa.append(self.first.power_received(
-            self.ue.get_location()))
+        environment.pa.append(
+            self.first.power_received(self.ue.get_location()))
         # environment.pb.append(self.)
         nearby_bs = self.ue.get_nearby_bs()
         if len(nearby_bs) == 0:
@@ -86,7 +86,8 @@ class Simulate_UE:
             for e_nb in nearby_bs:
                 if e_nb.get_id() != self.ue.get_eNB().get_id():
                     source_rsrp = self.ue.get_eNB().power_received(
-                        self.ue.get_location())
+                        self.ue.get_location()
+                    )
                     target_rsrp = e_nb.power_received(self.ue.get_location())
                     if target_rsrp > source_rsrp + environment.HYSTERESIS:
                         if self.ho_active is False:
@@ -96,13 +97,13 @@ class Simulate_UE:
                             # print("UE %s is in area of eNB %s" % (ue.get_id(), e_nb.get_id()))
 
     def check_handover_completion(self):
-        target_rsrp = self.ue.get_upcoming_eNB().power_received(
-            self.ue.get_location())
+        target_rsrp = self.ue.get_upcoming_eNB().power_received(self.ue.get_location())
         if self.Ticker.time - self.ho_trigger_time >= environment.TTT:
-            source_rsrp = self.ue.get_eNB().power_received(
-                self.ue.get_location())
-            if (target_rsrp > source_rsrp + environment.HYSTERESIS +
-                    environment.A3_OFFSET):
+            source_rsrp = self.ue.get_eNB().power_received(self.ue.get_location())
+            if (
+                target_rsrp
+                > source_rsrp + environment.HYSTERESIS + environment.A3_OFFSET
+            ):
                 self.ho_active = False
                 self.ue.set_HO_success(self.ue.get_handover_type())
                 self.ue.set_eNB(self.ue.get_upcoming_eNB())

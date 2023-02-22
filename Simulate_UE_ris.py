@@ -127,8 +127,10 @@ class Simulate_UE_ris:
         # target_rsrp = self.ue.get_upcoming_eNB().power_received(self.ue.get_location())
         if self.Ticker.time - self.ho_trigger_time >= environment.TTT:
             source_rsrp = self.ue.get_eNB().P_ris(self.ue.get_location())
-            if (target_rsrp > source_rsrp + environment.HYSTERESIS +
-                    environment.A3_OFFSET):
+            if (
+                target_rsrp
+                > source_rsrp + environment.HYSTERESIS + environment.A3_OFFSET
+            ):
                 self.ho_active = False
                 self.ue.set_HO_success(self.ue.get_handover_type())
                 self.ue.set_eNB(self.ue.get_upcoming_eNB())
